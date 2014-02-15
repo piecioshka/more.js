@@ -38,6 +38,20 @@
         return Math.random().toString(16).slice(2);
     };
 
+    More.prototype.getCellContent = function (cell) {
+        return cell.innerText || cell.textContent;
+    };
+
+    More.prototype.setCellContent = function (cell, content) {
+        if ('innerText' in cell) {
+            cell.innerText = content;
+        } else if ('textContent' in cell) {
+            cell.textContent = content;
+        } else {
+            throw new Error("Sorry, I can't update this element");
+        }
+    };
+
     More.prototype.getBigCells = function () {
         var self = this;
         var bigCells = [];
@@ -45,7 +59,7 @@
         var cells = target.getElementsByTagName('td');
 
         if (!cells) {
-            throw new Error("Doesn't exists any cells");
+            throw new Error("Sorry, cells doesn't exists");
         }
 
         // NodeList => Array
@@ -53,7 +67,7 @@
 
         // checking if content of cell is too long
         cells.forEach(function (cell) {
-            var text = cell.innerText;
+            var text = self.getCellContent(cell);
             if (text.length > self.settings.limit) {
                 bigCells.push(cell);
             }
@@ -68,11 +82,11 @@
         // if we doesn't have cache text
         if (!this.bigCells[uid]) {
             // save it on cache list
-            this.bigCells[uid] = cell.innerText;
+            this.bigCells[uid] = this.getCellContent(cell);
         }
 
         // put into cell short version
-        cell.innerText = cell.innerText.substring(0, this.settings.limit) + ' ';
+        this.setCellContent(cell, this.getCellContent(cell).substring(0, this.settings.limit) + ' ');
 
         // add link 'more'
         cell.appendChild(this.buildLink('applyLonger', 'more', cell, uid));
@@ -80,7 +94,7 @@
 
     More.prototype.applyLonger = function (cell, uid) {
         // puts into cell long version (default)
-        cell.innerText = this.bigCells[uid] + ' ';
+        this.setCellContent(cell, this.bigCells[uid] + ' ');
 
         // add link 'less'
         cell.appendChild(this.buildLink('applyShorter', 'less', cell, uid));
@@ -94,7 +108,7 @@
             self[fn](cell, uniqueId);
         });
         link.setAttribute('href', '#' + uniqueId);
-        link.innerText = label;
+        this.setCellContent(link, label);
         return link;
     };
 

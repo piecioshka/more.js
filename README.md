@@ -1,7 +1,6 @@
 # more.js
 
-If you have a table with long content in cells.
-Attach this lib, and view table with nice look.
+If you have a table with long text in cells, attach this lib, and enjoy a better appearance.
 
 ## Example:
 
@@ -11,7 +10,7 @@ new More('table#my_table', 20);
 
 # Demo
 
-If you are interested how table look like after transofrmation, check
+If you are interested how table look like after transformation, check
 this [http://jsninja.pl/more.js/example/][1]
 
 ## License
