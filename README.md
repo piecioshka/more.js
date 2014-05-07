@@ -14,7 +14,10 @@ More about that tool on: [http://blog.piecioshka.pl/2014/01/30/more-js-z-czym-to
 
 Ths line is responsible for that effect. Run after table was rendered:
 ```js
-new More('table#my_table', 20);
+new More({
+    selector: 'table#my_table',
+    limit: 20
+});
 ```
 
 # Demo
