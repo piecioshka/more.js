@@ -23,12 +23,12 @@ new More({
 # Demo
 
 If you are interested how table look like after transformation, check
-this [http://jsninja.pl/more.js/example/][1]
+this [http://piecioshka.pl/projects/more.js/example/][1]
 
 ## License
 
 [The MIT License][0]
 
 [0]: http://piecioshka.mit-license.org
-[1]: http://jsninja.pl/more.js/example/
+[1]: http://piecioshka.pl/projects/more.js/example/
 [2]: http://blog.piecioshka.pl/2014/01/30/more-js-z-czym-to-sie-je/
