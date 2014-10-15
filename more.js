@@ -13,12 +13,12 @@
 
 /*jslint nomen: true, indent: 4, vars: true */
 /*global document */
-(function (root, factory) {
+
+(function (root) {
     'use strict';
 
-    root.More = factory(root._);
-}(this, function (_) {
-    'use strict';
+    // Import dependencies.
+    var _ = root._;
 
     if (_ !== Object(_)) {
         throw new Error('more.js: required underscore is not an object');
@@ -56,7 +56,7 @@
     // ------------------------------------------------------------------------
 
     /**
-     * @param {String} options.selector Selector for table which will be transform.
+     * @param {string} options.selector Selector for table which will be transform.
      * @param {number} options.limit Number of chars what will be inside in cell
      * @param {number} [options.useForceSlice=false] Flag enable smooth string slice
      * @constructor
@@ -70,6 +70,7 @@
         };
 
         this.settings = _.extend(this.settings, options);
+
         this.initialize();
     }
 
@@ -124,6 +125,7 @@
                     bigCells.push(cell);
                 }
             }, this);
+
             return bigCells;
         },
 
@@ -164,9 +166,12 @@
             });
             link.setAttribute('href', '#' + uniqueId);
             this.setCellContent(link, label);
+
             return link;
         }
     };
 
-    return More;
-}));
+    // Exports `More`.
+    return (root.More = More);
+
+}(this));
