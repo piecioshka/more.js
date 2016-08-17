@@ -12,15 +12,15 @@ If you are interested how table look like please visit: http://codepen.io/piecio
 
 1. Before use:
 
-![Before use](http://piecioshka.pl/blog/assets/images/posts/more-js-normal.png "Before use")
+![Before use](http://piecioshka.pl/blog/assets/images/posts/more-js/more-js-normal.png "Before use")
 
 2. After use or after 'less' link clicked:
 
-![Before use](http://piecioshka.pl/blog/assets/images/posts/more-js-collapse.png "After use")
+![Before use](http://piecioshka.pl/blog/assets/images/posts/more-js/more-js-collapse.png "After use")
 
 3. After use and click 'more' link:
 
-![Before use](http://piecioshka.pl/blog/assets/images/posts/more-js-expand.png "Before use and click")
+![Before use](http://piecioshka.pl/blog/assets/images/posts/more-js/more-js-expand.png "Before use and click")
 
 ## Usage
 
