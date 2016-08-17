@@ -1,8 +1,7 @@
 /**
- * @fileOverview Add links 'more' or 'less' for cell with long content
  * @author Piotr Kowalski <piecioshka@gmail.com>
+ * @description Add links 'more' or 'less' for cell with long content
  * @license The MIT License
- * @dependencies: underscore.js {@link http://underscorejs.org}
  * @example
  *   new More({
  *       selector: '#mytable',
@@ -10,66 +9,34 @@
  *       useForceSlice: false
  *   });
  */
-
-/*jslint nomen: true, indent: 4, vars: true */
-/*global document */
-
 (function (root) {
     'use strict';
 
-    // Import dependencies.
-    var _ = root._;
-
-    if (_ !== Object(_)) {
-        throw new Error('more.js: required underscore is not an object');
-    }
-
-    // Utilities
-    // ------------------------------------------------------------------------
-
-    var trim = function (source) {
-        return source.replace(/^\s+|\s+$/g, '');
-    };
-
-    var smoothSlice = function (source, length, isForce) {
-        if (source.length < length) {
-            return source;
-        }
-
-        var text = source.slice(0, length), last_space;
-        if (source[length] === ' ') {
-            return text + '...';
-        }
-        if (text[length - 1] === ' ') {
-            return trim(text) + '...';
-        }
-        if (!isForce) {
-            last_space = text.lastIndexOf(' ');
-            if (last_space !== -1) {
-                return text.slice(0, last_space) + '...';
-            }
-        }
-        return text + '...';
-    };
-
-    // Main
-    // ------------------------------------------------------------------------
-
     /**
+     * @param {Object} options
      * @param {string} options.selector Selector for table which will be transform.
-     * @param {number} options.limit Number of chars what will be inside in cell
+     * @param {number} [options.limit=100] Number of chars what will be inside in cell
      * @param {number} [options.useForceSlice=false] Flag enable smooth string slice
      * @constructor
      */
     function More(options) {
+        /**
+         * Hashmap with cells.
+         *
+         * @type {Object}
+         */
         this.bigCells = {};
-        this.settings = {
+
+        /**
+         * Main settings.
+         *
+         * @type {Object}
+         */
+        this.settings = mixin({
             selector: null,
             limit: 100,
             useForceSlice: false
-        };
-
-        this.settings = _.extend(this.settings, options);
+        }, options);
 
         this.initialize();
     }
@@ -78,37 +45,21 @@
         initialize: function () {
             // get cells with long content
             var bigCellsList = this.getBigCells();
+
             // check if bigCellsList is array
-            if (!_.isArray(bigCellsList)) {
+            if (!isArray(bigCellsList)) {
                 throw new Error('more.js: bigCellsList is not an array');
             }
+
             // for each cell cut content and add link to show more
-            _.each(bigCellsList, function (cell) {
+            forEach(bigCellsList, function (cell) {
                 this.applyShorter(cell);
             }, this);
         },
 
-        getUID: function () {
-            return Math.random().toString(16).slice(2);
-        },
-
-        getCellContent: function (cell) {
-            return cell.innerText || cell.textContent;
-        },
-
-        setCellContent: function (cell, content) {
-            if ('innerText' in cell) {
-                cell.innerText = content;
-            } else if ('textContent' in cell) {
-                cell.textContent = content;
-            } else {
-                throw new Error("more.js: Sorry, I can't update this element");
-            }
-        },
-
         getBigCells: function () {
             var bigCells = [];
-            var target = document.querySelector(this.settings.selector);
+            var target = root.document.querySelector(this.settings.selector);
             var cells = target.getElementsByTagName('td');
 
             if (!cells) {
@@ -119,8 +70,8 @@
             cells = Array.prototype.slice.call(cells);
 
             // checking if content of cell is too long
-            _.each(cells, function (cell) {
-                var text = this.getCellContent(cell);
+            forEach(cells, function (cell) {
+                var text = getCellContent(cell);
                 if (text.length > this.settings.limit) {
                     bigCells.push(cell);
                 }
@@ -131,47 +82,122 @@
 
         applyShorter: function (cell, uid) {
             // use set unique value of generate them
-            uid = uid || this.getUID();
+            uid = uid || getUID();
 
             // if we doesn't have cache text
             if (!this.bigCells[uid]) {
                 // save it on cache list
-                this.bigCells[uid] = this.getCellContent(cell);
+                this.bigCells[uid] = getCellContent(cell);
             }
 
-            var cellContent = this.getCellContent(cell);
+            var cellContent = getCellContent(cell);
             var shortVersion = smoothSlice(cellContent, this.settings.limit, this.settings.useForceSlice);
 
             // put into cell short version
-            this.setCellContent(cell, shortVersion);
+            setCellContent(cell, shortVersion);
 
             // add link 'more'
-            cell.appendChild(this.buildLink('applyLonger', 'more', cell, uid));
+            cell.appendChild(buildLink('applyLonger', 'more', cell, uid));
         },
 
         applyLonger: function (cell, uid) {
             // puts into cell long version (default)
-            this.setCellContent(cell, this.bigCells[uid] + ' ');
+            setCellContent(cell, this.bigCells[uid] + ' ');
 
             // add link 'less'
-            cell.appendChild(this.buildLink('applyShorter', 'less', cell, uid));
-        },
-
-        buildLink: function (fn, label, cell, uniqueId) {
-            var self = this;
-            var link = document.createElement('a');
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                self[fn](cell, uniqueId);
-            });
-            link.setAttribute('href', '#' + uniqueId);
-            this.setCellContent(link, label);
-
-            return link;
+            cell.appendChild(buildLink('applyShorter', 'less', cell, uid));
         }
     };
 
-    // Exports `More`.
+    // Helpers
+    // ------------------------------------------------------------------------
+
+    function getUID() {
+        return Math.random().toString(16).slice(2);
+    }
+
+    function getCellContent(cell) {
+        return cell.innerText || cell.textContent;
+    }
+
+    function setCellContent(cell, content) {
+        if ('innerText' in cell) {
+            cell.innerText = content;
+        } else if ('textContent' in cell) {
+            cell.textContent = content;
+        } else {
+            throw new Error("more.js: Sorry, I can't update this element");
+        }
+    }
+
+    function buildLink(fn, label, cell, uniqueId) {
+        var self = this;
+        var link = root.document.createElement('a');
+
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            self[fn](cell, uniqueId);
+        });
+        link.setAttribute('href', '#' + uniqueId);
+        setCellContent(link, label);
+
+        return link;
+    }
+
+    // Utilities
+    // ------------------------------------------------------------------------
+
+    function trim(source) {
+        return source.replace(/^\s+|\s+$/g, '');
+    }
+
+    function smoothSlice(source, length, isForce) {
+        if (source.length < length) {
+            return source;
+        }
+
+        var last_space;
+        var text = source.slice(0, length);
+
+        if (source[length] === ' ') {
+            return text + '...';
+        }
+
+        if (text[length - 1] === ' ') {
+            return trim(text) + '...';
+        }
+
+        if (!isForce) {
+            last_space = text.lastIndexOf(' ');
+            if (last_space !== -1) {
+                return text.slice(0, last_space) + '...';
+            }
+        }
+        return text + '...';
+    }
+
+    function mixin(source, target) {
+        for (var key in target) {
+            if (target.hasOwnProperty(key)) {
+                source[key] = target[key];
+            }
+        }
+        return source;
+    }
+
+    function isArray(value) {
+        return Object.prototype.toString.call(value) === '[object Array]';
+    }
+
+    function forEach(value, iterator, context) {
+        context = context || this;
+        var len = value.length;
+
+        for (var i = 0; i < len; i++) {
+            iterator.call(context, value[i]);
+        }
+    }
+
     return (root.More = More);
 
-}(this));
+}(window));

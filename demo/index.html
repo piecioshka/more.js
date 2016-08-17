@@ -39,15 +39,12 @@
         </div>
     </div>
 
-    <script src="http://underscorejs.org/underscore.js"></script>
     <script src="../more.js"></script>
     <script>
-        (function () {
-            return new More({
-                selector: '#big-table',
-                limit: 10
-            });
-        }());
+        new More({
+            selector: '#big-table',
+            limit: 10
+        });
     </script>
 </body>
 </html>
