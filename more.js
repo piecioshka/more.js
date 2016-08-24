@@ -97,7 +97,7 @@
             setCellContent(cell, shortVersion);
 
             // add link 'more'
-            cell.appendChild(buildLink('applyLonger', 'more', cell, uid));
+            cell.appendChild(this.buildLink('applyLonger', 'more', cell, uid));
         },
 
         applyLonger: function (cell, uid) {
@@ -105,7 +105,21 @@
             setCellContent(cell, this.bigCells[uid] + ' ');
 
             // add link 'less'
-            cell.appendChild(buildLink('applyShorter', 'less', cell, uid));
+            cell.appendChild(this.buildLink('applyShorter', 'less', cell, uid));
+        },
+
+        buildLink: function (fn, label, cell, uniqueId) {
+            var self = this;
+            var link = root.document.createElement('a');
+            link.setAttribute('href', '#' + uniqueId);
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                self[fn](cell, uniqueId);
+            });
+
+            setCellContent(link, label);
+
+            return link;
         }
     };
 
@@ -128,20 +142,6 @@
         } else {
             throw new Error("more.js: Sorry, I can't update this element");
         }
-    }
-
-    function buildLink(fn, label, cell, uniqueId) {
-        var self = this;
-        var link = root.document.createElement('a');
-
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            self[fn](cell, uniqueId);
-        });
-        link.setAttribute('href', '#' + uniqueId);
-        setCellContent(link, label);
-
-        return link;
     }
 
     // Utilities
