@@ -9,7 +9,7 @@
 
 ## Motivation
 
-More about that tool (in polish): <http://piecioshka.pl/blog/2014/01/30/more-js-z-czym-to-sie-je.html>
+More about that tool (in polish): <https://piecioshka.pl/blog/2014/01/30/narzedzia-swiata-more-js.html>
 
 ## Example
 
