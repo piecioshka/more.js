@@ -1,26 +1,29 @@
 # more.js
 
-If you have a table with long text in cells, attach this lib, and enjoy a better appearance.
+🛠 Truncate content in table cells.
 
-More about that tool (in polish): http://piecioshka.pl/blog/2014/01/30/more-js-z-czym-to-sie-je.html
+## Demo 🚀
 
-## Demo
+* <http://codepen.io/piecioshka/pen/GqZydL>
+* <https://piecioshka.github.com/more.js/>
 
-If you are interested how table look like please visit: http://codepen.io/piecioshka/pen/GqZydL
+## Motivation
+
+More about that tool (in polish): <http://piecioshka.pl/blog/2014/01/30/more-js-z-czym-to-sie-je.html>
 
 ## Example
 
 1. Before use:
 
-![Before use](http://piecioshka.pl/blog/assets/images/posts/more-js/more-js-normal.png "Before use")
+    ![normal](http://piecioshka.pl/assets/images/posts/more-js/more-js-normal.png)
 
 2. After use or after 'less' link clicked:
 
-![Before use](http://piecioshka.pl/blog/assets/images/posts/more-js/more-js-collapse.png "After use")
+    ![collapse](http://piecioshka.pl/assets/images/posts/more-js/more-js-collapse.png)
 
 3. After use and click 'more' link:
 
-![Before use](http://piecioshka.pl/blog/assets/images/posts/more-js/more-js-expand.png "Before use and click")
+    ![expand](http://piecioshka.pl/assets/images/posts/more-js/more-js-expand.png )
 
 ## Usage
 
