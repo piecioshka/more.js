@@ -2,7 +2,7 @@
 
 🛠 Truncate content in table cells.
 
-## Demo 🚀
+## Preview 🚀
 
 * <http://codepen.io/piecioshka/pen/GqZydL>
 * <https://piecioshka.github.com/more.js/>
