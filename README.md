@@ -5,11 +5,11 @@
 ## Preview 🎉
 
 * <http://codepen.io/piecioshka/pen/GqZydL>
-* <https://piecioshka.github.com/more.js/>
+* <https://piecioshka.github.io/more.js/>
 
 ## Motivation
 
-More about that tool (in polish): <https://piecioshka.pl/blog/2014/01/30/narzedzia-swiata-more-js.html>
+More about that tool (in Polish): <https://piecioshka.pl/blog/2014/01/30/narzedzia-swiata-more-js.html>
 
 ## Example
 
@@ -17,11 +17,11 @@ More about that tool (in polish): <https://piecioshka.pl/blog/2014/01/30/narzedz
 
     ![normal](http://piecioshka.pl/assets/images/posts/more-js/more-js-normal.png)
 
-2. After use or after 'less' link clicked:
+2. After use or after the 'less' link is clicked:
 
     ![collapse](http://piecioshka.pl/assets/images/posts/more-js/more-js-collapse.png)
 
-3. After use and click 'more' link:
+3. After use and click the 'more' link:
 
     ![expand](http://piecioshka.pl/assets/images/posts/more-js/more-js-expand.png )
 
@@ -58,7 +58,7 @@ Gigantic table in HTML:
 </table>
 ```
 
-Ths line is responsible for effect of truncated each cell content.
+This line is responsible for the effect of truncating cell content.
 
 ```javascript
 new More({
